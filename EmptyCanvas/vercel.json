@@ -1,0 +1,22 @@
+{
+  "rewrites": [
+    {
+      "source": "/orders/new",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/orders/new/products",
+      "destination": "/create-order-products.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/notifications",
+      "schedule": "0 9 * * *"
+    }
+  ]
+}
