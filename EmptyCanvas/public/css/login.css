@@ -1,0 +1,489 @@
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: url('/images/login-background.jpg') center/cover no-repeat, linear-gradient(135deg, #F5F3F0 0%, #E5E7EB 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.login-header {
+  margin-bottom: 2rem;
+}
+
+.login-logo {
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.login-header h1 {
+  color: #111827;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.login-header p {
+  color: #6B7280;
+  font-size: 0.95rem;
+}
+
+.login-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #F9FAFB;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #D97706;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+.login-btn {
+  width: 100%;
+  background-color: #EA580C;
+  color: white;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.login-btn:hover {
+  background-color: #C2410C;
+}
+
+.login-btn:disabled {
+  background-color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #FECACA;
+}
+
+.success-message {
+  background-color: #D1FAE5;
+  color: #059669;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #A7F3D0;
+}
+
+/* Loading state */
+.login-btn.loading {
+  background-color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.login-btn.loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-card {
+    padding: 2rem;
+  }
+}
+
+/* Show/Hide password control */
+.password-wrapper { position: relative; }
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] { padding-right: 2.5rem; }
+.toggle-password {
+  position: absolute; top: 50%; right: .6rem; transform: translateY(-50%);
+  width: 2rem; height: 2rem; border: 0; background: transparent; color: #6B7280;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  border-radius: 50%;
+}
+.toggle-password:hover { color: #374151; background: rgba(0,0,0,.04); }
+.toggle-password:active { transform: translateY(-50%) scale(.98); }
+
+/* Forgot password flow */
+.login-form[hidden],
+.forgot-form[hidden] {
+  display: none !important;
+}
+
+.forgot-password-link,
+.back-login-link {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #C2410C;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.forgot-password-link {
+  display: block;
+  margin: -0.35rem 0 1.1rem;
+}
+
+.back-login-link {
+  margin-top: 1rem;
+  color: #6B7280;
+}
+
+.forgot-password-link:hover,
+.back-login-link:hover {
+  color: #EA580C;
+  transform: translateY(-1px);
+}
+
+.forgot-copy {
+  text-align: center;
+  margin: -0.2rem 0 1.4rem;
+  padding: 1rem;
+  border: 1px solid #FED7AA;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.95), rgba(255, 255, 255, 0.95));
+}
+
+.forgot-copy h2 {
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.45rem;
+}
+
+.forgot-copy p {
+  color: #6B7280;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Sign up request flow */
+.signup-link-btn {
+  width: 100%;
+  margin-top: 0.85rem;
+  border: 1.5px solid rgba(234, 88, 12, 0.22);
+  background: #fff7ed;
+  color: #c2410c;
+  min-height: 46px;
+  border-radius: 12px;
+  font-size: 0.98rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.signup-link-btn:hover {
+  transform: translateY(-2px);
+  background: #ffedd5;
+  box-shadow: 0 14px 28px rgba(234, 88, 12, 0.12);
+}
+
+.signup-form {
+  animation: signupSweepIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.auth-signup-mode .login-card {
+  animation: signupCardGlow 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.signup-copy {
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-copy::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -30%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.16), transparent 68%);
+  pointer-events: none;
+}
+
+.signup-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.signup-form input {
+  border-radius: 14px;
+  min-height: 50px;
+  font-weight: 650;
+}
+
+.signup-submit-btn {
+  border-radius: 14px;
+  min-height: 50px;
+  box-shadow: 0 16px 34px rgba(234, 88, 12, 0.24);
+}
+
+@keyframes signupSweepIn {
+  from {
+    opacity: 0;
+    transform: translateX(42px) scale(0.97);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes signupCardGlow {
+  0% { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08); }
+  45% { box-shadow: 0 26px 58px rgba(234, 88, 12, 0.18), 0 0 0 1px rgba(234, 88, 12, 0.12); }
+  100% { box-shadow: 0 22px 46px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(234, 88, 12, 0.08); }
+}
+
+@media (max-width: 480px) {
+  .signup-form .forgot-copy {
+    padding: 0.85rem;
+  }
+
+  .signup-form input {
+    min-height: 48px;
+  }
+}
+
+body.auth-signup-mode,
+body.auth-recovery-mode {
+  overflow-y: auto;
+  align-items: flex-start;
+  padding: 32px 0;
+}
+
+body.auth-signup-mode .login-container {
+  max-width: 460px;
+}
+
+@media (max-width: 480px) {
+  body.auth-signup-mode,
+  body.auth-recovery-mode {
+    padding: 18px 0;
+  }
+}
+
+/* Sign up transition refinement */
+.login-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.login-header {
+  position: relative;
+  z-index: 2;
+}
+
+.signup-logo-burst {
+  position: absolute;
+  left: 50%;
+  top: 28px;
+  width: 82px;
+  height: 82px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+.signup-logo-burst i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #EA580C;
+  box-shadow: 0 0 0 5px rgba(234, 88, 12, 0.12), 0 0 20px rgba(234, 88, 12, 0.35);
+  opacity: 0;
+}
+
+.signup-logo-burst i:nth-child(2n) { background: #111827; }
+.signup-logo-burst i:nth-child(3n) { background: #F97316; }
+.signup-logo-burst i:nth-child(1) { --x: -58px; --y: -28px; }
+.signup-logo-burst i:nth-child(2) { --x: 52px; --y: -34px; }
+.signup-logo-burst i:nth-child(3) { --x: -68px; --y: 22px; }
+.signup-logo-burst i:nth-child(4) { --x: 68px; --y: 20px; }
+.signup-logo-burst i:nth-child(5) { --x: -28px; --y: -64px; }
+.signup-logo-burst i:nth-child(6) { --x: 28px; --y: -62px; }
+.signup-logo-burst i:nth-child(7) { --x: -42px; --y: 58px; }
+.signup-logo-burst i:nth-child(8) { --x: 42px; --y: 58px; }
+
+.signup-link-btn {
+  background: #020617;
+  color: #ffffff;
+  border-color: #020617;
+  min-height: 48px;
+  box-shadow: 0 18px 32px rgba(2, 6, 23, 0.16);
+}
+
+.signup-link-btn:hover {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+  box-shadow: 0 20px 38px rgba(2, 6, 23, 0.2);
+}
+
+.signup-link-btn:disabled {
+  opacity: 0.82;
+  cursor: wait;
+  transform: none;
+}
+
+body.auth-signup-mode .login-card,
+body.auth-recovery-mode .login-card,
+body.auth-transitioning-to-signup .login-card {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body.auth-transitioning-to-signup .login-logo {
+  animation: signupLogoSpinFireworks 0.95s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+body.auth-transitioning-to-signup .signup-logo-burst {
+  opacity: 1;
+}
+
+body.auth-transitioning-to-signup .signup-logo-burst i {
+  animation: signupFireworkDot 0.82s cubic-bezier(0.17, 0.84, 0.44, 1) both;
+}
+
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(2) { animation-delay: 0.04s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(3) { animation-delay: 0.07s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(4) { animation-delay: 0.1s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(5) { animation-delay: 0.13s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(6) { animation-delay: 0.16s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(7) { animation-delay: 0.19s; }
+body.auth-transitioning-to-signup .signup-logo-burst i:nth-child(8) { animation-delay: 0.22s; }
+
+body.auth-transitioning-to-signup #loginForm {
+  animation: loginDataDropAway 0.78s cubic-bezier(0.7, 0, 0.84, 0) both;
+}
+
+body.auth-transitioning-to-signup .login-header h1,
+body.auth-transitioning-to-signup .login-header p {
+  animation: loginTextSoftFade 0.56s ease both;
+}
+
+body.auth-signup-mode .signup-form {
+  animation: signupDataDropIn 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+body.auth-signup-mode .login-logo {
+  animation: logoFloat 3s infinite ease-in-out;
+}
+
+@keyframes signupLogoSpinFireworks {
+  0% { transform: translateY(0) rotate(0deg) scale(1); filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0)); }
+  42% { transform: translateY(-16px) rotate(220deg) scale(1.12); filter: drop-shadow(0 16px 26px rgba(234, 88, 12, 0.32)); }
+  72% { transform: translateY(24px) rotate(430deg) scale(0.96); }
+  100% { transform: translateY(0) rotate(720deg) scale(1); filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0)); }
+}
+
+@keyframes signupFireworkDot {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
+  20% { opacity: 1; }
+  70% { opacity: 1; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--x) * 1.16), calc(-50% + var(--y) * 1.16 + 14px)) scale(0.55); }
+}
+
+@keyframes loginDataDropAway {
+  0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  62% { opacity: 0.28; transform: translateY(38px) scale(0.98); filter: blur(2px); }
+  100% { opacity: 0; transform: translateY(90px) scale(0.94); filter: blur(7px); }
+}
+
+@keyframes loginTextSoftFade {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0.15; transform: translateY(-10px); }
+}
+
+@keyframes signupDataDropIn {
+  from { opacity: 0; transform: translateY(-46px) scale(0.97); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@media (max-width: 480px) {
+  .signup-logo-burst {
+    top: 22px;
+  }
+
+  .signup-link-btn {
+    min-height: 50px;
+  }
+}
